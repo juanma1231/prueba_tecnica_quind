@@ -5,6 +5,8 @@ import com.quind.prueba.tecnica.domain.model.ports.outbound.TaskRepositoryPort;
 import com.quind.prueba.tecnica.infrastructure.db.entities.task.TaskEntity;
 import com.quind.prueba.tecnica.infrastructure.db.mappers.ITaskEntityMapper;
 import com.quind.prueba.tecnica.infrastructure.db.repository.TaskRepository;
+import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,7 +48,7 @@ public class TaskDbAdapter implements TaskRepositoryPort {
     public Task findById(Long id) {
         Optional<TaskEntity> tasKById = taskRepository.findById(id);
         if(tasKById.isEmpty()){
-
+            throw new TaskServiceException(HttpStatus.NOT_FOUND,"No existe un task registrado con ese id, id: " + id);
         }
         else{
             return iTaskEntityMapper.toTask(tasKById.get());

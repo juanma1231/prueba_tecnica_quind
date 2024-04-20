@@ -7,11 +7,11 @@ import com.quind.prueba.tecnica.domain.model.models.Task;
 public class ITaskDtoMapperImpl implements ITaskDtoMappers {
     @Override
     public Task toTasK(TaskDTO taskDTO) {
-        return null;
+        return new Task(taskDTO.getTaskCode(),taskDTO.getDescription(),taskDTO.getAssignedPerson(),taskDTO.getPriority(),taskDTO.getStatus(),taskDTO.getBeginDate(),taskDTO.getEndDate(),taskDTO.getComment());
     }
 
     @Override
     public TaskDTO toTaskDto(Task task) {
-        return null;
+        return new TaskDTO(task.getTaskCode(),task.getDescription(),task.getAssignedPerson(),task.getStatus(),task.getBeginDate(),task.getEndDate(),task.getComment(),task.getPriority());
     }
 }

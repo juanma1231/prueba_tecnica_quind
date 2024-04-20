@@ -1,28 +1,32 @@
 package com.quind.prueba.tecnica.infrastructure.api.dtos;
 
+import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Person;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class TaskDTO {
 
-    private UUID taskCode;
+    private Long taskCode;
 
     private  String description;
 
-    private Person assignedPerson;
+    private String assignedPerson;
 
     private Status status;
 
-    private LocalDateTime beginDate;
+    private LocalDate beginDate;
 
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     private String comment;
 
-    public TaskDTO(UUID taskCode, String description, Person assignedPerson, Status status, LocalDateTime beginDate, LocalDateTime endDate, String comment) {
+   private Priority priority;
+
+    public TaskDTO(Long taskCode, String description, String assignedPerson, Status status, LocalDate beginDate, LocalDate endDate, String comment, Priority priority) {
         this.taskCode = taskCode;
         this.description = description;
         this.assignedPerson = assignedPerson;
@@ -30,16 +34,28 @@ public class TaskDTO {
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.comment = comment;
+        this.priority = priority;
     }
 
-    public UUID getTaskCode() {
+    public Long getTaskCode() {
         return taskCode;
     }
 
-    public void setTaskCode(UUID taskCode) {
+    public void setTaskCode(Long taskCode) {
         this.taskCode = taskCode;
     }
 
+    public void setAssignedPerson(String assignedPerson) {
+        this.assignedPerson = assignedPerson;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 
     public String getDescription() {
         return description;
@@ -49,12 +65,8 @@ public class TaskDTO {
         this.description = description;
     }
 
-    public Person getAssignedPerson() {
+    public String getAssignedPerson() {
         return assignedPerson;
-    }
-
-    public void setAssignedPerson(Person assignedPerson) {
-        this.assignedPerson = assignedPerson;
     }
 
     public Status getStatus() {
@@ -65,19 +77,19 @@ public class TaskDTO {
         this.status = status;
     }
 
-    public LocalDateTime getBeginDate() {
+    public LocalDate getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(LocalDateTime beginDate) {
+    public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 

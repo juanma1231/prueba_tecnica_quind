@@ -38,6 +38,17 @@ public class Task {
         this.comment = comment;
     }
 
+    public Task(Long taskCode, String description, String assignedPerson, Priority priority, Status status, LocalDate beginDate, LocalDate endDate, String comment) {
+        this.taskCode = taskCode;
+        this.description = description;
+        this.assignedPerson = assignedPerson;
+        this.priority = priority;
+        this.status = status;
+        this.beginDate = beginDate;
+        this.endDate = endDate;
+        this.comment = comment;
+    }
+
     public Long getTaskCode() {
         return taskCode;
     }

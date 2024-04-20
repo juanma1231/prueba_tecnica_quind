@@ -7,10 +7,6 @@ w
 Gsrc/main/java/com/quind/prueba/tecnica/domain/model/enums/Priority.java,6/9/69011a21ccb7e694c278d7f44dc456ca3a3c49e9
 U
 %.idea/modules/prueba.tecnica.main.iml,a/9/a9cc0672fd2f94ff35f0d7fcc5f48419adf5a438
-˜
-hsrc/main/java/com/quind/prueba/tecnica/infrastructure/api/mappers/implementation/ITaskDtoMapperImpl.java,d/3/d3e8479ee43d8a28f1c109484b73b5e2fe4df662
-†
-Vsrc/main/java/com/quind/prueba/tecnica/infrastructure/db/entities/task/TaskEntity.java,e/8/e88499e28fb145f71fe60ebe49e5005e5d030b95
 Š
 Zsrc/main/java/com/quind/prueba/tecnica/infrastructure/db/entities/person/PersonEntity.java,d/b/dba84d4e8390c9d0b5dea242b5faf0b069509063
 ‰
