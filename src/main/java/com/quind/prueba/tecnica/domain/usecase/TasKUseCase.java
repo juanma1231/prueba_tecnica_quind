@@ -31,13 +31,15 @@ public class TasKUseCase implements TaskUseCasePort {
         }
         task.setAddedDate(LocalDate.now());
         iSpecificationTask.createTaskValidations(task);
-        taskRepositoryPort.save(task);
         return taskRepositoryPort.save(task);
     }
 
     @Override
     public Task update(TaskUpdateDTO task, Long id) {
         Task taskToUpdate = taskRepositoryPort.findById(id);
+        if(taskToUpdate==null){
+            throw new TaskServiceException(HttpStatus.NOT_FOUND,"No existe un task registrado con ese id, id: " + id);
+        }
         iSpecificationTask.updateTaskValidations(taskToUpdate,task);
         taskToUpdate.setAssignedPerson(task.getAssignedPerson());
         taskToUpdate.setStatus(task.getStatus());
@@ -49,6 +51,9 @@ public class TasKUseCase implements TaskUseCasePort {
     @Override
     public void deleteById(Long id) {
         Task taskToDelete = taskRepositoryPort.findById(id);
+        if(taskToDelete == null){
+            throw new TaskServiceException(HttpStatus.NOT_FOUND,"No existe un task registrado con ese id, id: " + id);
+        }
         iSpecificationTask.validateDeleteTask(taskToDelete);
         taskRepositoryPort.delete(id);
 
