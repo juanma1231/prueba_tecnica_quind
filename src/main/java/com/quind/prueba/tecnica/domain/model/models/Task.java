@@ -1,43 +1,50 @@
 package com.quind.prueba.tecnica.domain.model.models;
 
+import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Task {
-    private UUID taskCode;
+    private Long taskCode;
 
     private  String description;
 
-    private Person assignedPerson;
+    private String assignedPerson;
+
+    private LocalDate addedDate;
+
+    private Priority priority;
 
     private Status status;
 
-    private  LocalDateTime beginDate;
+    private LocalDate beginDate;
 
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     private String comment;
 
-    public Task(UUID taskCode, String description, Person assignedPerson, Status status, LocalDateTime beginDate, LocalDateTime endDate, String comment) {
+    public Task(Long taskCode, String description, String assignedPerson, LocalDate addedDate, Priority priority, Status status, LocalDate beginDate, LocalDate endDate, String comment) {
         this.taskCode = taskCode;
         this.description = description;
         this.assignedPerson = assignedPerson;
+        this.addedDate = addedDate;
+        this.priority = priority;
         this.status = status;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.comment = comment;
     }
 
-    public UUID getTaskCode() {
+    public Long getTaskCode() {
         return taskCode;
     }
 
-    public void setTaskCode(UUID taskCode) {
+    public void setTaskCode(Long taskCode) {
         this.taskCode = taskCode;
     }
-
 
     public String getDescription() {
         return description;
@@ -47,12 +54,20 @@ public class Task {
         this.description = description;
     }
 
-    public Person getAssignedPerson() {
+    public String getAssignedPerson() {
         return assignedPerson;
     }
 
-    public void setAssignedPerson(Person assignedPerson) {
+    public void setAssignedPerson(String assignedPerson) {
         this.assignedPerson = assignedPerson;
+    }
+
+    public LocalDate getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(LocalDate addedDaate) {
+        this.addedDate = addedDaate;
     }
 
     public Status getStatus() {
@@ -63,19 +78,19 @@ public class Task {
         this.status = status;
     }
 
-    public LocalDateTime getBeginDate() {
+    public LocalDate getBeginDate() {
         return beginDate;
     }
 
-    public void setBeginDate(LocalDateTime beginDate) {
+    public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -85,5 +100,13 @@ public class Task {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 }
