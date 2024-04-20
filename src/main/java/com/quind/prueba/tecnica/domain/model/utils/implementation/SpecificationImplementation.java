@@ -7,10 +7,11 @@ import com.quind.prueba.tecnica.domain.model.utils.ISpecificationTask;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
 import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-
+@Component
 public class SpecificationImplementation implements ISpecificationTask {
 
     private final int MAX_COMMENT_LENGHT = 200;

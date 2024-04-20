@@ -1,10 +1,4 @@
 
-<
-build.gradle,f/0/f07866736216be0ee2aba49e392191aeae700a35
-u
-Esrc/main/java/com/quind/prueba/tecnica/domain/model/enums/Status.java,a/4/a4d360fe2eaa5102565f53530563ebe1d2910a01
-w
-Gsrc/main/java/com/quind/prueba/tecnica/domain/model/enums/Priority.java,6/9/69011a21ccb7e694c278d7f44dc456ca3a3c49e9
 U
 %.idea/modules/prueba.tecnica.main.iml,a/9/a9cc0672fd2f94ff35f0d7fcc5f48419adf5a438
 Š

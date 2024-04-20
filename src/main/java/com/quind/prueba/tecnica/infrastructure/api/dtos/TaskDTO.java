@@ -2,11 +2,8 @@ package com.quind.prueba.tecnica.infrastructure.api.dtos;
 
 import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
-import com.quind.prueba.tecnica.domain.model.models.Person;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class TaskDTO {
 
@@ -99,5 +96,19 @@ public class TaskDTO {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskDTO{" +
+                "taskCode=" + taskCode +
+                ", description='" + description + '\'' +
+                ", assignedPerson='" + assignedPerson + '\'' +
+                ", status=" + status +
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                ", comment='" + comment + '\'' +
+                ", priority=" + priority +
+                '}';
     }
 }

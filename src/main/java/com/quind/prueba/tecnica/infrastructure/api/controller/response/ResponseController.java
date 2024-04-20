@@ -23,7 +23,7 @@ public class ResponseController {
     public ResponseController (String message, int statusCode, List<TaskDTO> taskDTOS) {
         this.message = message;
         this.statusCode = statusCode;
-        this.tasks = tasks;
+        this.tasks = taskDTOS;
     }
 
     public String getMessage() {

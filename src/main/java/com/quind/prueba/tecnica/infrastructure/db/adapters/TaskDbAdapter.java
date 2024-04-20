@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -41,7 +42,11 @@ public class TaskDbAdapter implements TaskRepositoryPort {
 
     @Override
     public boolean taskAlreadyExists(Long id, LocalDate date) {
-        return false;
+        Optional<TaskEntity> taskEntity= taskRepository.findByTaskCodeAndEndDate(id,date);
+        if(taskEntity.isEmpty()){
+            return false;
+        }else return true;
+
     }
 
     @Override
@@ -53,5 +58,10 @@ public class TaskDbAdapter implements TaskRepositoryPort {
         else{
             return iTaskEntityMapper.toTask(tasKById.get());
         }
+    }
+
+    @Override
+    public List<Task> findAll() {
+        return iTaskEntityMapper.toTasks(taskRepository.findAll());
     }
 }

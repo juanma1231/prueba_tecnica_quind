@@ -5,9 +5,12 @@ import com.quind.prueba.tecnica.domain.model.ports.inbound.TaskUseCasePort;
 import com.quind.prueba.tecnica.domain.model.ports.outbound.TaskRepositoryPort;
 import com.quind.prueba.tecnica.domain.model.utils.ISpecificationTask;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
+import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class TasKUseCase implements TaskUseCasePort {
@@ -24,7 +27,7 @@ public class TasKUseCase implements TaskUseCasePort {
     @Override
     public Task createTask(Task task) {
         if(taskRepositoryPort.taskAlreadyExists(task.getTaskCode(), task.getBeginDate())){
-
+            throw new TaskServiceException(HttpStatus.BAD_REQUEST, "Ya existe una tarea con ese codigo y fecha de inicio");
         }
         task.setAddedDate(LocalDate.now());
         iSpecificationTask.createTaskValidations(task);
@@ -49,5 +52,10 @@ public class TasKUseCase implements TaskUseCasePort {
         iSpecificationTask.validateDeleteTask(taskToDelete);
         taskRepositoryPort.delete(id);
 
+    }
+
+    @Override
+    public List<Task> findAll() {
+        return taskRepositoryPort.findAll();
     }
 }

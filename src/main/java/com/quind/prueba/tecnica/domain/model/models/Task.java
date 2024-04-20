@@ -120,4 +120,19 @@ public class Task {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "taskCode=" + taskCode +
+                ", description='" + description + '\'' +
+                ", assignedPerson='" + assignedPerson + '\'' +
+                ", addedDate=" + addedDate +
+                ", priority=" + priority +
+                ", status=" + status +
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 }
