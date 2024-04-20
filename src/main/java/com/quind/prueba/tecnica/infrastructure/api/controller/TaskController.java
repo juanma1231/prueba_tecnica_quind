@@ -33,7 +33,7 @@ public class TaskController {
         TaskDTO taskEdited = iTaskHandler.update(taskRequest,taskCode);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Edición exitosa para tarea con código: " + taskEdited.getTaskCode(), HttpStatus.OK.value()));
     }
-    @GetMapping("/all/{order}")
+    @GetMapping("/all")
     public ResponseEntity<ResponseController> getAll(){
         List<TaskDTO> taskDTOS = iTaskHandler.finAll();
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosaa",HttpStatus.OK.value(),taskDTOS));
