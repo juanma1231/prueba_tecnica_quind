@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" tests="8" skipped="0" failures="3" errors="0" timestamp="2024-04-20T21:56:12" hostname="user-VivoBook-ASUSLaptop-X415EA-X415EA" time="0.05">
+<testsuite name="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" tests="8" skipped="0" failures="3" errors="0" timestamp="2024-04-21T17:12:27" hostname="user-VivoBook-ASUSLaptop-X415EA-X415EA" time="0.071">
   <properties/>
-  <testcase name="test_priority_baja_no_comment()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.022"/>
-  <testcase name="test_begin_date_validation()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.01">
+  <testcase name="test_priority_baja_no_comment()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.029"/>
+  <testcase name="test_begin_date_validation()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.016">
     <failure message="java.lang.AssertionError: Validation should pass" type="java.lang.AssertionError">java.lang.AssertionError: Validation should pass
 	at org.junit.Assert.fail(Assert.java:89)
 	at com.quind.prueba.tecnica.usecase.SpecificationImplementationTest.test_begin_date_validation(SpecificationImplementationTest.java:108)
@@ -80,7 +80,7 @@
 	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
 	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
 	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.stop(Unknown Source)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
@@ -92,7 +92,7 @@
 	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
 </failure>
   </testcase>
-  <testcase name="test_finalizado_status_update_validation()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.005">
+  <testcase name="test_finalizado_status_update_validation()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.012">
     <failure message="org.opentest4j.AssertionFailedError: expected: &lt;No se pueden editar tareas con estado Finalizado&gt; but was: &lt;No se pueden editar tareas con estado Finalizado &gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;No se pueden editar tareas con estado Finalizado&gt; but was: &lt;No se pueden editar tareas con estado Finalizado &gt;
 	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
 	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
@@ -175,7 +175,7 @@
 	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
 	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
 	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.stop(Unknown Source)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
@@ -190,7 +190,7 @@
   <testcase name="test_priority_alta_within_two_days()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.001"/>
   <testcase name="test_priority_alta_with_comment()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.001"/>
   <testcase name="test_priority_alta_more_than_two_days()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.001"/>
-  <testcase name="test_priority_baja_more_than_two_days()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.0"/>
+  <testcase name="test_priority_baja_more_than_two_days()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.001"/>
   <testcase name="test_comment_length_validation()" classname="com.quind.prueba.tecnica.usecase.SpecificationImplementationTest" time="0.002">
     <failure message="java.lang.AssertionError: Validation should pass" type="java.lang.AssertionError">java.lang.AssertionError: Validation should pass
 	at org.junit.Assert.fail(Assert.java:89)
@@ -269,7 +269,7 @@
 	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
 	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
 	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.stop(Unknown Source)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
 	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)

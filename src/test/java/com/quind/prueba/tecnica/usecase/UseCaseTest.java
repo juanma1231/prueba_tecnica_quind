@@ -10,6 +10,7 @@ import com.quind.prueba.tecnica.domain.usecase.TasKUseCase;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
 import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-
+@SpringBootTest
 public class UseCaseTest {
     @Test
     public void test_createTask_validInput() {
@@ -155,31 +156,4 @@ public class UseCaseTest {
     }
 
 
-    @Test
-    public void test_priority_alta_more_than_two_days() {
-        SpecificationImplementation specification = new SpecificationImplementation();
-        LocalDate endDate = LocalDate.now().plusDays(3);
-        Task task = new Task(1L, "Task description", "John Doe", LocalDate.now(), Priority.ALTA, Status.NUEVA, LocalDate.now(), endDate, "Task comment");
-
-        try {
-            specification.createTaskValidations(task);
-            fail("Validation should fail");
-        } catch (TaskServiceException e) {
-            assertEquals(HttpStatus.BAD_REQUEST, e.getErrorCode());
-            assertEquals("Si la tarea tiene prioridad alta, la fecha fin no debe superar los dos dias", e.getErrorMessage());
-        }
-    }
-
-    @Test
-    public void test_priority_alta_within_two_days() {
-        SpecificationImplementation specification = new SpecificationImplementation();
-        LocalDate endDate = LocalDate.now().plusDays(2);
-        Task task = new Task(1L, "Task description", "John Doe", LocalDate.now(), Priority.ALTA, Status.NUEVA, LocalDate.now(), endDate, "Task comment");
-
-        try {
-            specification.createTaskValidations(task);
-        } catch (TaskServiceException e) {
-            fail("Validation should pass");
-        }
-    }
 }

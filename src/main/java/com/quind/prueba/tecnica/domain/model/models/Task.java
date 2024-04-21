@@ -4,8 +4,6 @@ import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class Task {
     private Long taskCode;
