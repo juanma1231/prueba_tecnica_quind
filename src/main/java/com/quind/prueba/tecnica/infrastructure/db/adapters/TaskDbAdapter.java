@@ -1,5 +1,7 @@
 package com.quind.prueba.tecnica.infrastructure.db.adapters;
 
+import com.quind.prueba.tecnica.domain.model.enums.Priority;
+import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Task;
 import com.quind.prueba.tecnica.domain.model.ports.outbound.TaskRepositoryPort;
 import com.quind.prueba.tecnica.infrastructure.db.entities.task.TaskEntity;
@@ -66,5 +68,10 @@ public class TaskDbAdapter implements TaskRepositoryPort {
     @Override
     public List<Task> findOrderByTaskCodeDesc() {
         return iTaskEntityMapper.toTasks(taskRepository.findAllByOrderByTaskCodeDesc());
+    }
+
+    @Override
+    public List<Task> findBySomeTopics(Status status, LocalDate startDate, String assignedPerson, Priority priority) {
+        return iTaskEntityMapper.toTasks(taskRepository.findByComplexQuery(status,startDate,assignedPerson,priority));
     }
 }

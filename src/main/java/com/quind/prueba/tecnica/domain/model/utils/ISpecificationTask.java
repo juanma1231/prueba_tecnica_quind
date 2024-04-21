@@ -10,7 +10,7 @@ import java.time.LocalDate;
 public interface ISpecificationTask {
 
     void createTaskValidations(Task task);
-    void validatePriority(Priority priority, LocalDate date);
+    void validatePriority(Priority priority, LocalDate date,LocalDate endDate);
 
     void validateEndDate(LocalDate startDate, LocalDate endDate);
     void validateHighPriority(Priority priority, String comment);

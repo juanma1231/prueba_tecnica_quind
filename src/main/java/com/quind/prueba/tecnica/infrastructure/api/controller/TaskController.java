@@ -1,14 +1,19 @@
 package com.quind.prueba.tecnica.infrastructure.api.controller;
 
+import com.quind.prueba.tecnica.domain.model.enums.Priority;
+import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.infrastructure.api.controller.response.ResponseController;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskDTO;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
 import com.quind.prueba.tecnica.infrastructure.api.handlers.ITaskHandler;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Properties;
 
 @RestController
 @RequestMapping(value = "/task")
@@ -40,6 +45,16 @@ public class TaskController {
     @GetMapping("/taskcode")
     public ResponseEntity<ResponseController> getAllOrderByTaskCode(@RequestParam(required = false, defaultValue = "asc") String order){
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosa", HttpStatus.OK.value()));
+    }
+
+    @GetMapping("/complex")
+    public ResponseEntity<ResponseController> getTasks(
+            @RequestParam(required = false) Status status,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam(required = false) String assignedPerson,
+            @RequestParam(required = false) Priority priority) {
+        List<TaskDTO> tasks = iTaskHandler.findBySomeTopics(status,startDate,assignedPerson,priority);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosa", HttpStatus.OK.value(),tasks));
     }
 
 

@@ -19,7 +19,7 @@ public class SpecificationImplementation implements ISpecificationTask {
     private final int MAX_AMOUNT_DAYS = 15;
     @Override
     public void createTaskValidations(Task task) {
-        validatePriority(task.getPriority(), task.getEndDate());
+        validatePriority(task.getPriority(), task.getBeginDate(),task.getEndDate());
         validateEndDate(task.getBeginDate(), task.getEndDate());
         validateHighPriority(task.getPriority(), task.getComment());
         validateComment(task.getComment());
@@ -27,8 +27,8 @@ public class SpecificationImplementation implements ISpecificationTask {
     }
 
     @Override
-    public void validatePriority(Priority priority, LocalDate date) {
-        if(priority.equals(Priority.ALTA) && defferencesPerDays(LocalDate.now(),date)>2){
+    public void validatePriority(Priority priority, LocalDate beginDate, LocalDate endDate) {
+        if(priority.equals(Priority.ALTA) && defferencesPerDays(beginDate,endDate)>2){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST, "Si la tarea tiene prioridad alta, la fecha fin no debe superar los dos dias");
         }
 

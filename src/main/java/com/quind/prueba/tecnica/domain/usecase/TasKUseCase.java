@@ -1,5 +1,7 @@
 package com.quind.prueba.tecnica.domain.usecase;
 
+import com.quind.prueba.tecnica.domain.model.enums.Priority;
+import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Task;
 import com.quind.prueba.tecnica.domain.model.ports.inbound.TaskUseCasePort;
 import com.quind.prueba.tecnica.domain.model.ports.outbound.TaskRepositoryPort;
@@ -7,6 +9,7 @@ import com.quind.prueba.tecnica.domain.model.utils.ISpecificationTask;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
 import com.quind.prueba.tecnica.infrastructure.exception.InvalidParameterException;
 import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -74,6 +77,11 @@ public class TasKUseCase implements TaskUseCasePort {
             return taskRepositoryPort.findOrderByTaskCodeDesc();
         }
         else throw new InvalidParameterException("Solo se permite asc para bsuqeda acendente o desc para busqueda decendente",HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public List<Task> findBySomeTopics(Status status, LocalDate startDate, String assignedPerson, Priority priority) {
+        return taskRepositoryPort.findBySomeTopics(status,startDate,assignedPerson,priority);
     }
 
 }

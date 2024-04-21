@@ -1,6 +1,9 @@
 package com.quind.prueba.tecnica.domain.model.ports.outbound;
 
+import com.quind.prueba.tecnica.domain.model.enums.Priority;
+import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Task;
+import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,4 +17,6 @@ public interface TaskRepositoryPort {
     List<Task> findAll();
     List<Task> findOrderByTaskCodeAsc();
     List<Task> findOrderByTaskCodeDesc();
+
+    List<Task> findBySomeTopics(Status status, LocalDate startDate, String assignedPerson, Priority priority);
 }
