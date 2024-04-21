@@ -57,7 +57,8 @@ jacocoTestReport {
 							'**/com/quind/prueba/tecnica/infrastructure/api**',
 							'**/com/quind/prueba/tecnica/infrastructure/db**',
 							'**/com/quind/prueba/tecnica/infrastructure/exception**',
-							'**/com/quind/prueba/tecnica/domain/model/utils/ISpecificationTask.java'
+							'**/com/quind/prueba/tecnica/domain/model/utils/ISpecificationTask.java',
+							'**/com/quind/prueba/tecnica/domain/usecase/UserSecurityService.java'
 					])
 		})
 	}
