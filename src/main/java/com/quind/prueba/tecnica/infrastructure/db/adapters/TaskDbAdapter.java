@@ -61,13 +61,13 @@ public class TaskDbAdapter implements TaskRepositoryPort {
     }
 
     @Override
-    public List<Task> findOrderByTaskCodeAsc() {
-        return iTaskEntityMapper.toTasks(taskRepository.findAllByOrderByTaskCodeAsc());
+    public List<Task> findAllByOrderByAdditionDateAsc() {
+        return iTaskEntityMapper.toTasks(taskRepository.findAllByOrderByAdditionDateAsc());
     }
 
     @Override
-    public List<Task> findOrderByTaskCodeDesc() {
-        return iTaskEntityMapper.toTasks(taskRepository.findAllByOrderByTaskCodeDesc());
+    public List<Task> findAllByOrderByAdditionDateDesc() {
+        return iTaskEntityMapper.toTasks(taskRepository.findAllByOrderByAdditionDateDesc());
     }
 
     @Override

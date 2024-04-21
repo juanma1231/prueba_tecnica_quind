@@ -15,7 +15,7 @@ public interface ITaskHandler {
 
     List<TaskDTO> finAll();
 
-    List<TaskDTO> findAllOrderByTaskCode(String order);
+    List<TaskDTO> findAllOrderByAdditionDate(String order);
 
     List<TaskDTO> findBySomeTopics(Status status, LocalDate startDate, String assignedPerson, Priority priority);
 

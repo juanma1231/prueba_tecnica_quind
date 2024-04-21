@@ -18,7 +18,7 @@ public interface TaskUseCasePort {
 
     List<Task> findAll();
 
-    List<Task> findAllOrderByTaskCode(String order);
+    List<Task> findAllOrderByAdditionDate(String order);
 
     List<Task> findBySomeTopics(Status status, LocalDate startDate, String assignedPerson, Priority priority);
 }

@@ -29,8 +29,10 @@ public interface TaskRepository extends JpaRepository<TaskEntity,Long> {
 
 
 
-    List<TaskEntity> findAllByOrderByTaskCodeAsc();
-    List<TaskEntity> findAllByOrderByTaskCodeDesc();
+    List<TaskEntity> findAllByOrderByAdditionDateAsc();
+
+    List<TaskEntity> findAllByOrderByAdditionDateDesc();
+
 
 
 }

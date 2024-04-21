@@ -40,8 +40,8 @@ public class TaskHandlerImpl implements ITaskHandler {
     }
 
     @Override
-    public List<TaskDTO> findAllOrderByTaskCode(String order) {
-        return iTaskDtoMappers.toTasksDTO(taskUseCasePort.findAllOrderByTaskCode(order));
+    public List<TaskDTO> findAllOrderByAdditionDate(String order) {
+        return iTaskDtoMappers.toTasksDTO(taskUseCasePort.findAllOrderByAdditionDate(order));
     }
 
     @Override

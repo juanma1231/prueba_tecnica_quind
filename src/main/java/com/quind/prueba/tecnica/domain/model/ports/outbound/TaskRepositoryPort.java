@@ -15,8 +15,8 @@ public interface TaskRepositoryPort {
     boolean taskAlreadyExists(Long id, LocalDate date);
     Task findById(Long id);
     List<Task> findAll();
-    List<Task> findOrderByTaskCodeAsc();
-    List<Task> findOrderByTaskCodeDesc();
+    List<Task> findAllByOrderByAdditionDateAsc();
+    List<Task> findAllByOrderByAdditionDateDesc();
 
     List<Task> findBySomeTopics(Status status, LocalDate startDate, String assignedPerson, Priority priority);
 }

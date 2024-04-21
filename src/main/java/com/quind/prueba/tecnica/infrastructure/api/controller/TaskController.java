@@ -42,10 +42,11 @@ public class TaskController {
     public ResponseEntity<ResponseController> getAll(){
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosaa",HttpStatus.OK.value(),iTaskHandler.finAll()));
     }
-    @GetMapping("/taskcode")
+    @GetMapping("/aditionDate")
     public ResponseEntity<ResponseController> getAllOrderByTaskCode(@RequestParam(required = false, defaultValue = "asc") String order){
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosa", HttpStatus.OK.value()));
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosa", HttpStatus.OK.value(),iTaskHandler.findAllOrderByAdditionDate(order)));
     }
+
 
     @GetMapping("/complex")
     public ResponseEntity<ResponseController> getTasks(
