@@ -44,10 +44,7 @@ public class TasKUseCase implements TaskUseCasePort {
             throw new TaskServiceException(HttpStatus.NOT_FOUND,"No existe un task registrado con ese id, id: " + id);
         }
         iSpecificationTask.updateTaskValidations(taskToUpdate,task);
-        taskToUpdate.setAssignedPerson(task.getAssignedPerson());
-        taskToUpdate.setStatus(task.getStatus());
-        taskToUpdate.setEndDate(task.getEndDate());
-        taskToUpdate.setComment(task.getComment());
+        taskToUpdate = iSpecificationTask.updateTask(taskToUpdate,task);
         return taskRepositoryPort.update(taskToUpdate);
     }
 
@@ -59,7 +56,6 @@ public class TasKUseCase implements TaskUseCasePort {
         }
         iSpecificationTask.validateDeleteTask(taskToDelete);
         taskRepositoryPort.delete(id);
-
     }
 
     @Override

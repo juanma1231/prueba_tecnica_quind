@@ -48,5 +48,10 @@ public class TaskHandlerImpl implements ITaskHandler {
     public List<TaskDTO> findBySomeTopics(Status status, LocalDate startDate, String assignedPerson, Priority priority) {
         return iTaskDtoMappers.toTasksDTO(taskUseCasePort.findBySomeTopics(status,startDate,assignedPerson,priority));
     }
+
+    @Override
+    public void deleteById(Long taskCode) {
+        taskUseCasePort.deleteById(taskCode);
+    }
 }
 

@@ -126,7 +126,7 @@ public class SpecificationImplementation implements ISpecificationTask {
 
     @Override
     public void validateLimitTime(LocalDate endDate) {
-        if(endDate.isAfter(LocalDate.now())){
+        if(endDate.isBefore(LocalDate.now())){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST,"No se pueden eliminar taras que cumplan con el tiempo limite de ejecucion");
         }
     }
@@ -136,6 +136,23 @@ public class SpecificationImplementation implements ISpecificationTask {
         if(priority.equals(Priority.ALTA) && !status.equals(Status.NUEVA)){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST,"Si una tarea tiene una prioridad alta solo puede eliminarse cuando el estado es Nueva");
         }
+    }
+
+    @Override
+    public Task updateTask(Task task, TaskUpdateDTO taskUpdateDTO) {
+        if(taskUpdateDTO.getAssignedPerson()!=null){
+            task.setAssignedPerson(taskUpdateDTO.getAssignedPerson());
+        }
+        if(taskUpdateDTO.getStatus()!=null){
+            task.setStatus(taskUpdateDTO.getStatus());
+        }
+        if(taskUpdateDTO.getComment()!=null){
+            task.setComment(taskUpdateDTO.getComment());
+        }
+        if(taskUpdateDTO.getEndDate()!=null){
+            task.setEndDate(taskUpdateDTO.getEndDate());
+        }
+        return task;
     }
 
     public static Long defferencesPerDays(LocalDate firstDate, LocalDate secondDate){

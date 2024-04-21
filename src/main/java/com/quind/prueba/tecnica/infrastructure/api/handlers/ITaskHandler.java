@@ -19,4 +19,6 @@ public interface ITaskHandler {
 
     List<TaskDTO> findBySomeTopics(Status status, LocalDate startDate, String assignedPerson, Priority priority);
 
+    void deleteById(Long taskCode);
+
 }

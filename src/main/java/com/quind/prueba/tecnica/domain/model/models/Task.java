@@ -47,6 +47,9 @@ public class Task {
         this.comment = comment;
     }
 
+    public Task() {
+    }
+
     public Long getTaskCode() {
         return taskCode;
     }

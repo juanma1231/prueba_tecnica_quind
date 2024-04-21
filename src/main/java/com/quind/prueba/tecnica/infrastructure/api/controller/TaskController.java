@@ -45,6 +45,11 @@ public class TaskController {
     public ResponseEntity<ResponseController> getAllOrderByTaskCode(@RequestParam(required = false, defaultValue = "asc") String order){
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosa", HttpStatus.OK.value(),iTaskHandler.findAllOrderByAdditionDate(order)));
     }
+    @DeleteMapping("/delete/{taskCode}")
+    public ResponseEntity<ResponseController> deleteTaskById( @PathVariable Long taskCode){
+        iTaskHandler.deleteById(taskCode);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Tarea eliminada con exito",HttpStatus.OK.value()));
+    }
 
 
     @GetMapping("/complex")

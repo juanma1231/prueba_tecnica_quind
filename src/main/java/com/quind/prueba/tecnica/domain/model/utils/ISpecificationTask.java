@@ -31,5 +31,6 @@ public interface ISpecificationTask {
     void validateLimitTime(LocalDate endDate);
     void valdiatePriorityAndSatusToDelete(Priority priority, Status status);
 
+    Task updateTask(Task task, TaskUpdateDTO taskUpdateDTO);
     
 }
