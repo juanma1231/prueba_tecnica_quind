@@ -6,16 +6,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TaskRepositoryPort {
-
     Task save(Task task);
-
     Task update(Task task);
-
     void delete(Long id);
-
     boolean taskAlreadyExists(Long id, LocalDate date);
-
     Task findById(Long id);
-
     List<Task> findAll();
+    List<Task> findOrderByTaskCodeAsc();
+    List<Task> findOrderByTaskCodeDesc();
 }

@@ -35,9 +35,15 @@ public class TaskController {
     }
     @GetMapping("/all")
     public ResponseEntity<ResponseController> getAll(){
-        List<TaskDTO> taskDTOS = iTaskHandler.finAll();
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosaa",HttpStatus.OK.value(),taskDTOS));
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosaa",HttpStatus.OK.value(),iTaskHandler.finAll()));
     }
+    @GetMapping("/taskcode")
+    public ResponseEntity<ResponseController> getAllOrderByTaskCode(@RequestParam(required = false, defaultValue = "asc") String order){
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Consulta exitosa", HttpStatus.OK.value()));
+    }
+
+
+
 }
 
 

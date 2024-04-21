@@ -14,4 +14,6 @@ public interface TaskUseCasePort {
     void deleteById(Long id);
 
     List<Task> findAll();
+
+    List<Task> findAllOrderByTaskCode(String order);
 }

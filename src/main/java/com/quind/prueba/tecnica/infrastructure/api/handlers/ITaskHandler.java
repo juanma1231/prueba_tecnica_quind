@@ -11,4 +11,6 @@ public interface ITaskHandler {
     TaskDTO update(TaskUpdateDTO taskUpdateDTO, Long id);
 
     List<TaskDTO> finAll();
+
+    List<TaskDTO> findAllOrderByTaskCode(String order);
 }

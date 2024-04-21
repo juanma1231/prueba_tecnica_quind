@@ -50,16 +50,21 @@ public class TaskDbAdapter implements TaskRepositoryPort {
     @Override
     public Task findById(Long id) {
         Optional<TaskEntity> tasKById = taskRepository.findById(id);
-        if(tasKById.isEmpty()){
-            return  null;
-        }
-        else{
-            return iTaskEntityMapper.toTask(tasKById.get());
-        }
+        return tasKById.map(iTaskEntityMapper::toTask).orElse(null);
     }
 
     @Override
     public List<Task> findAll() {
         return iTaskEntityMapper.toTasks(taskRepository.findAll());
+    }
+
+    @Override
+    public List<Task> findOrderByTaskCodeAsc() {
+        return iTaskEntityMapper.toTasks(taskRepository.findAllByOrderByTaskCodeAsc());
+    }
+
+    @Override
+    public List<Task> findOrderByTaskCodeDesc() {
+        return iTaskEntityMapper.toTasks(taskRepository.findAllByOrderByTaskCodeDesc());
     }
 }

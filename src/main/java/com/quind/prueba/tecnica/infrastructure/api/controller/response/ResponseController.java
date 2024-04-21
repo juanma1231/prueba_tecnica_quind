@@ -1,6 +1,5 @@
 package com.quind.prueba.tecnica.infrastructure.api.controller.response;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskDTO;
 
 import java.util.List;
@@ -8,12 +7,8 @@ import java.util.List;
 public class ResponseController {
     private String message;
     private int statusCode;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<TaskDTO> tasks;
 
-
-    public ResponseController() {
-    }
 
     public ResponseController(String message, int statusCode) {
         this.message = message;

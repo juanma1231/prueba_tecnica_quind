@@ -5,6 +5,7 @@ import com.quind.prueba.tecnica.domain.model.ports.inbound.TaskUseCasePort;
 import com.quind.prueba.tecnica.domain.model.ports.outbound.TaskRepositoryPort;
 import com.quind.prueba.tecnica.domain.model.utils.ISpecificationTask;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
+import com.quind.prueba.tecnica.infrastructure.exception.InvalidParameterException;
 import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -63,4 +64,16 @@ public class TasKUseCase implements TaskUseCasePort {
     public List<Task> findAll() {
         return taskRepositoryPort.findAll();
     }
+
+    @Override
+    public List<Task> findAllOrderByTaskCode(String order) {
+        if (order.equalsIgnoreCase("asc")){
+            return taskRepositoryPort.findOrderByTaskCodeAsc();
+        }
+        else if (order.equalsIgnoreCase("desc")){
+            return taskRepositoryPort.findOrderByTaskCodeDesc();
+        }
+        else throw new InvalidParameterException("Solo se permite asc para bsuqeda acendente o desc para busqueda decendente",HttpStatus.BAD_REQUEST);
+    }
+
 }
