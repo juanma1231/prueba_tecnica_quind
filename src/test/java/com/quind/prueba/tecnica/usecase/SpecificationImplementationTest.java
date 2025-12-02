@@ -1,28 +1,20 @@
 package com.quind.prueba.tecnica.usecase;
 
+import com.quind.prueba.tecnica.domain.model.commands.TaskUpdateCommand;
 import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Task;
 import com.quind.prueba.tecnica.domain.model.utils.implementation.SpecificationImplementation;
-import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
 import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
-import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-
-import java.time.LocalDate;
-
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class SpecificationImplementationTest {
 
@@ -70,7 +62,7 @@ class SpecificationImplementationTest {
     @Test
     void updateTaskValidationsTaskFinalizedThrowsException() {
         Task task = new Task(1L, "Task description", "John Doe", LocalDate.now(), Priority.MEDIA, Status.FINALIZADO, LocalDate.now(), LocalDate.now().plusDays(1), "Comment");
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(Status.ACTIVA, LocalDate.now().plusDays(1), "Jane Doe", "Updated comment");
+        TaskUpdateCommand taskUpdateDTO = new TaskUpdateCommand(Status.ACTIVA, LocalDate.now().plusDays(1), "Jane Doe", "Updated comment");
 
         assertThrows(TaskServiceException.class, () -> specification.updateTaskValidations(task, taskUpdateDTO));
 
@@ -80,7 +72,7 @@ class SpecificationImplementationTest {
     @Test
     void updateTaskValidationsHighPriorityAndInProgressThrowsException() {
         Task task = new Task(1L, "Task description", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now().plusDays(1), "Comment");
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(Status.EN_PROCESO, LocalDate.now().plusDays(1), "Jane Doe", "Updated comment");
+        TaskUpdateCommand taskUpdateDTO = new TaskUpdateCommand(Status.EN_PROCESO, LocalDate.now().plusDays(1), "Jane Doe", "Updated comment");
 
         assertThrows(TaskServiceException.class, () -> specification.updateTaskValidations(task, taskUpdateDTO));
 
@@ -90,7 +82,7 @@ class SpecificationImplementationTest {
     @Test
     void updateTaskValidationsEndDateBeforeStartDateThrowsException() {
         Task task = new Task(1L, "Task description", "John Doe", LocalDate.now().plusDays(1), Priority.MEDIA, Status.NUEVA, LocalDate.now(), LocalDate.now().plusDays(1), "Comment");
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(Status.NUEVA, LocalDate.now().minusDays(1), "Jane Doe", "Updated comment");
+        TaskUpdateCommand taskUpdateDTO = new TaskUpdateCommand(Status.NUEVA, LocalDate.now().minusDays(1), "Jane Doe", "Updated comment");
 
         assertThrows(TaskServiceException.class, () -> specification.validateDate(task.getBeginDate(), taskUpdateDTO.getEndDate()));
 
@@ -99,7 +91,7 @@ class SpecificationImplementationTest {
     @Test
     void updateTaskValidationsEndDatePassedAndStatusNotCanceledThrowsException() {
         Task task = new Task(1L, "Task description", "John Doe", LocalDate.now().minusDays(2), Priority.MEDIA, Status.NUEVA, LocalDate.now().minusDays(5), LocalDate.now().minusDays(2), "Comment");
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(Status.ACTIVA, LocalDate.now().plusDays(1), "Jane Doe", "Updated comment");
+        TaskUpdateCommand taskUpdateDTO = new TaskUpdateCommand(Status.ACTIVA, LocalDate.now().plusDays(1), "Jane Doe", "Updated comment");
 
         assertThrows(TaskServiceException.class, () -> specification.updateTaskValidations(task, taskUpdateDTO));
     }

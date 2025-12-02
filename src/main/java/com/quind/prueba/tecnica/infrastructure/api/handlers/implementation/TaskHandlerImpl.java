@@ -26,12 +26,12 @@ public class TaskHandlerImpl implements ITaskHandler {
 
     @Override
     public TaskDTO save(TaskDTO taskDTO) {
-        return iTaskDtoMappers.toTaskDto(taskUseCasePort.createTask(iTaskDtoMappers.toTasK(taskDTO)));
+        return iTaskDtoMappers.toTaskDto(taskUseCasePort.createTask(iTaskDtoMappers.toTask(taskDTO)));
     }
 
     @Override
     public TaskDTO update(TaskUpdateDTO taskUpdateDTO, Long id) {
-        return iTaskDtoMappers.toTaskDto(taskUseCasePort.update(taskUpdateDTO,id));
+        return iTaskDtoMappers.toTaskDto(taskUseCasePort.update(iTaskDtoMappers.toUpdateCommand(taskUpdateDTO),id));
     }
 
     @Override

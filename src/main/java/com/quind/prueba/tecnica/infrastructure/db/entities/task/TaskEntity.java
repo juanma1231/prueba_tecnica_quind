@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "task")
+@Table(name = "task", uniqueConstraints = {@UniqueConstraint(columnNames = {"task_code","begin_date"})})
 public class TaskEntity {
     @Column(name = "task_code")
     @Id

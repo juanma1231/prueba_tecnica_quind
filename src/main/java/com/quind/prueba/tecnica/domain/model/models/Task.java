@@ -1,5 +1,6 @@
 package com.quind.prueba.tecnica.domain.model.models;
 
+import com.quind.prueba.tecnica.domain.model.commands.TaskUpdateCommand;
 import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 
@@ -37,14 +38,7 @@ public class Task {
     }
 
     public Task(Long taskCode, String description, String assignedPerson, Priority priority, Status status, LocalDate beginDate, LocalDate endDate, String comment) {
-        this.taskCode = taskCode;
-        this.description = description;
-        this.assignedPerson = assignedPerson;
-        this.priority = priority;
-        this.status = status;
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-        this.comment = comment;
+        this(taskCode, description, assignedPerson, null, priority, status, beginDate, endDate, comment);
     }
 
     public Task() {
@@ -120,6 +114,33 @@ public class Task {
 
     public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public Task withAddedDate(LocalDate date) {
+        Task copy = copy();
+        copy.addedDate = date;
+        return copy;
+    }
+
+    public Task applyUpdate(TaskUpdateCommand taskUpdateCommand) {
+        Task copy = copy();
+        if(taskUpdateCommand.getAssignedPerson()!=null){
+            copy.assignedPerson = taskUpdateCommand.getAssignedPerson();
+        }
+        if(taskUpdateCommand.getStatus()!=null){
+            copy.status = taskUpdateCommand.getStatus();
+        }
+        if(taskUpdateCommand.getComment()!=null){
+            copy.comment = taskUpdateCommand.getComment();
+        }
+        if(taskUpdateCommand.getEndDate()!=null){
+            copy.endDate = taskUpdateCommand.getEndDate();
+        }
+        return copy;
+    }
+
+    private Task copy(){
+        return new Task(taskCode,description,assignedPerson,addedDate,priority,status,beginDate,endDate,comment);
     }
 
     @Override

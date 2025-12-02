@@ -1,12 +1,12 @@
 package com.quind.prueba.tecnica.domain.usecase;
 
+import com.quind.prueba.tecnica.domain.model.commands.TaskUpdateCommand;
 import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Task;
 import com.quind.prueba.tecnica.domain.model.ports.inbound.TaskUseCasePort;
 import com.quind.prueba.tecnica.domain.model.ports.outbound.TaskRepositoryPort;
 import com.quind.prueba.tecnica.domain.model.utils.ISpecificationTask;
-import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
 import com.quind.prueba.tecnica.infrastructure.exception.InvalidParameterException;
 import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
 import org.springframework.http.HttpStatus;
@@ -16,12 +16,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class TasKUseCase implements TaskUseCasePort {
+public class TaskUseCase implements TaskUseCasePort {
 
     private final TaskRepositoryPort taskRepositoryPort;
     private final ISpecificationTask iSpecificationTask;
 
-    public TasKUseCase(TaskRepositoryPort taskRepositoryPort, ISpecificationTask iSpecificationTask) {
+    public TaskUseCase(TaskRepositoryPort taskRepositoryPort, ISpecificationTask iSpecificationTask) {
         this.taskRepositoryPort = taskRepositoryPort;
         this.iSpecificationTask = iSpecificationTask;
     }
@@ -32,20 +32,20 @@ public class TasKUseCase implements TaskUseCasePort {
         if(taskRepositoryPort.taskAlreadyExists(task.getTaskCode(), task.getBeginDate())){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST, "Ya existe una tarea con ese codigo y fecha de inicio");
         }
-        task.setAddedDate(LocalDate.now());
-        iSpecificationTask.createTaskValidations(task);
-        return taskRepositoryPort.save(task);
+        Task taskWithAddedDate = task.withAddedDate(LocalDate.now());
+        iSpecificationTask.createTaskValidations(taskWithAddedDate);
+        return taskRepositoryPort.save(taskWithAddedDate);
     }
 
     @Override
-    public Task update(TaskUpdateDTO task, Long id) {
+    public Task update(TaskUpdateCommand task, Long id) {
         Task taskToUpdate = taskRepositoryPort.findById(id);
         if(taskToUpdate==null){
             throw new TaskServiceException(HttpStatus.NOT_FOUND,"No existe un task registrado con ese id, id: " + id);
         }
         iSpecificationTask.updateTaskValidations(taskToUpdate,task);
-        taskToUpdate = iSpecificationTask.updateTask(taskToUpdate,task);
-        return taskRepositoryPort.update(taskToUpdate);
+        Task updated = iSpecificationTask.updateTask(taskToUpdate,task);
+        return taskRepositoryPort.update(updated);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class TasKUseCase implements TaskUseCasePort {
         else if (order.equalsIgnoreCase("desc")){
             return taskRepositoryPort.findAllByOrderByAdditionDateDesc();
         }
-        else throw new InvalidParameterException("Solo se permite asc para bsuqeda acendente o desc para busqueda decendente",HttpStatus.BAD_REQUEST);
+        else throw new InvalidParameterException("Solo se permite 'asc' para búsqueda ascendente o 'desc' para búsqueda descendente",HttpStatus.BAD_REQUEST);
     }
 
     @Override
