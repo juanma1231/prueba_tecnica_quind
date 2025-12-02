@@ -1,10 +1,10 @@
 package com.quind.prueba.tecnica.domain.model.utils.implementation;
 
+import com.quind.prueba.tecnica.domain.model.commands.TaskUpdateCommand;
 import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Task;
 import com.quind.prueba.tecnica.domain.model.utils.ISpecificationTask;
-import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
 import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -28,6 +28,9 @@ public class SpecificationImplementation implements ISpecificationTask {
 
     @Override
     public void validatePriority(Priority priority, LocalDate beginDate, LocalDate endDate) {
+        if(priority == null || beginDate == null || endDate == null){
+            throw new TaskServiceException(HttpStatus.BAD_REQUEST, "La prioridad y las fechas son obligatorias");
+        }
         if(priority.equals(Priority.ALTA) && defferencesPerDays(beginDate,endDate)>2){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST, "Si la tarea tiene prioridad alta, la fecha fin no debe superar los dos dias");
         }
@@ -37,6 +40,9 @@ public class SpecificationImplementation implements ISpecificationTask {
 
     @Override
     public void validateEndDate(LocalDate startDate, LocalDate endDate) {
+        if(startDate == null || endDate == null){
+            throw new TaskServiceException(HttpStatus.BAD_REQUEST,"Las fechas de inicio y fin son requeridas");
+        }
         if (defferencesPerDays(startDate,endDate)>MAX_AMOUNT_DAYS){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST,"La duracion de la tarea no debe ser mayor a "+MAX_AMOUNT_DAYS+ " dias");
         }
@@ -45,7 +51,10 @@ public class SpecificationImplementation implements ISpecificationTask {
 
     @Override
     public void validateHighPriority(Priority priority, String comment) {
-        if(priority.equals(Priority.ALTA) && (comment.isEmpty() || comment == null)){
+        if(priority == null){
+            throw new TaskServiceException(HttpStatus.BAD_REQUEST, "La prioridad es obligatoria");
+        }
+        if(priority.equals(Priority.ALTA) && (comment == null || comment.isEmpty())){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST, "Las tareas con una una prioridad alta deben de llevar un comentario");
         }
     }
@@ -59,6 +68,9 @@ public class SpecificationImplementation implements ISpecificationTask {
 
     @Override
     public void validateBeginDate(LocalDate beginDate) {
+        if(beginDate == null){
+            throw new TaskServiceException(HttpStatus.BAD_REQUEST,"La fecha de inicio es requerida");
+        }
         if(beginDate.isBefore(LocalDate.now())){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST,"La fecha de inicio no debe ser menor que la fecha actual");
         }
@@ -66,24 +78,24 @@ public class SpecificationImplementation implements ISpecificationTask {
     }
 
     @Override
-    public void updateTaskValidations(Task task, TaskUpdateDTO taskUpdateDTO) {
+    public void updateTaskValidations(Task task, TaskUpdateCommand taskUpdateCommand) {
         validateStatus(task.getStatus());
         validatePriorityAndStatus(task.getPriority(),task.getStatus());
-        validateDate(task.getBeginDate(),taskUpdateDTO.getEndDate());
-        validateStatusAndEndDate(task.getEndDate() ,taskUpdateDTO.getStatus());
-        validateassiegnedPerson(task.getStatus(), taskUpdateDTO.getAssignedPerson());
+        validateDate(task.getBeginDate(),taskUpdateCommand.getEndDate());
+        validateStatusAndEndDate(task.getEndDate() ,taskUpdateCommand.getStatus());
+        validateassiegnedPerson(task.getStatus(), taskUpdateCommand.getAssignedPerson());
     }
 
     @Override
     public void validateStatus(Status status) {
-        if(status.equals(Status.FINALIZADO)){
+        if(status != null && status.equals(Status.FINALIZADO)){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST,"No se pueden editar tareas con estado Finalizado ");
         }
     }
 
     @Override
     public void validatePriorityAndStatus(Priority priority, Status status) {
-        if(priority.equals(Priority.ALTA) && status.equals(Status.EN_PROCESO)){
+        if(priority != null && status != null && priority.equals(Priority.ALTA) && status.equals(Status.EN_PROCESO)){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST,"No se pueden editar tareas con prioridad alta y estado en proceso");
         }
 
@@ -91,13 +103,19 @@ public class SpecificationImplementation implements ISpecificationTask {
 
     @Override
     public void validateDate(LocalDate startDate, LocalDate endDate) {
-        if (endDate.isBefore(startDate)){
+        if(endDate == null){
+            return;
+        }
+        if (startDate != null && endDate.isBefore(startDate)){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST,"La fecha fin no debe ser menor que la fecha de inicio");
         }
     }
 
     @Override
     public void validateStatusAndEndDate(LocalDate endDate, Status status) {
+        if(endDate == null){
+            return;
+        }
         if(endDate.isBefore(LocalDate.now()) && status != null && status != Status.CANCELADO){
             throw new TaskServiceException(HttpStatus.BAD_REQUEST,"Si la fecha fin es menor que la fecha actual, solo se puede cambiar el estado a cancelado");
         }
@@ -139,20 +157,8 @@ public class SpecificationImplementation implements ISpecificationTask {
     }
 
     @Override
-    public Task updateTask(Task task, TaskUpdateDTO taskUpdateDTO) {
-        if(taskUpdateDTO.getAssignedPerson()!=null){
-            task.setAssignedPerson(taskUpdateDTO.getAssignedPerson());
-        }
-        if(taskUpdateDTO.getStatus()!=null){
-            task.setStatus(taskUpdateDTO.getStatus());
-        }
-        if(taskUpdateDTO.getComment()!=null){
-            task.setComment(taskUpdateDTO.getComment());
-        }
-        if(taskUpdateDTO.getEndDate()!=null){
-            task.setEndDate(taskUpdateDTO.getEndDate());
-        }
-        return task;
+    public Task updateTask(Task task, TaskUpdateCommand taskUpdateCommand) {
+        return task.applyUpdate(taskUpdateCommand);
     }
 
     public static Long defferencesPerDays(LocalDate firstDate, LocalDate secondDate){

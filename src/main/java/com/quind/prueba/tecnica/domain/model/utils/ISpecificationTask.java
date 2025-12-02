@@ -1,9 +1,9 @@
 package com.quind.prueba.tecnica.domain.model.utils;
 
+import com.quind.prueba.tecnica.domain.model.commands.TaskUpdateCommand;
 import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Task;
-import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
 
 import java.time.LocalDate;
 
@@ -19,7 +19,7 @@ public interface ISpecificationTask {
 
     void validateBeginDate(LocalDate beginDate);
 
-    void updateTaskValidations(Task task, TaskUpdateDTO taskUpdateDTO);
+    void updateTaskValidations(Task task, TaskUpdateCommand taskUpdateCommand);
     void validateStatus(Status status);
     void validatePriorityAndStatus(Priority priority, Status status);
     void validateDate(LocalDate startDate, LocalDate endDate);
@@ -31,6 +31,6 @@ public interface ISpecificationTask {
     void validateLimitTime(LocalDate endDate);
     void valdiatePriorityAndSatusToDelete(Priority priority, Status status);
 
-    Task updateTask(Task task, TaskUpdateDTO taskUpdateDTO);
+    Task updateTask(Task task, TaskUpdateCommand taskUpdateCommand);
     
 }

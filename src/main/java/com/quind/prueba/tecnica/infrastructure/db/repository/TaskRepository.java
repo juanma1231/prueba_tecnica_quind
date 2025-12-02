@@ -15,8 +15,8 @@ import java.util.Optional;
 @Repository
 public interface TaskRepository extends JpaRepository<TaskEntity,Long> {
 
-    @Query(value = "SELECT * FROM task WHERE task_code = :taskCode AND begin_date = :endDate", nativeQuery = true)
-    Optional<TaskEntity> findByTaskCodeAndEndDate(@Param("taskCode") Long taskCode, @Param("endDate") LocalDate endDate);
+    @Query(value = "SELECT * FROM task WHERE task_code = :taskCode AND begin_date = :beginDate", nativeQuery = true)
+    Optional<TaskEntity> findByTaskCodeAndBeginDate(@Param("taskCode") Long taskCode, @Param("beginDate") LocalDate beginDate);
 
     @Query("SELECT t FROM TaskEntity t WHERE (:status IS NULL OR t.satus = :status) AND " +
             "(:startDate IS NULL OR t.beginDate = :startDate) AND " +

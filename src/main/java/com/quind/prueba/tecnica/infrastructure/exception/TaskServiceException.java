@@ -10,6 +10,7 @@ public class TaskServiceException extends RuntimeException{
     }
 
     public TaskServiceException(HttpStatus errorCode, String errorMessage) {
+        super(errorMessage);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }

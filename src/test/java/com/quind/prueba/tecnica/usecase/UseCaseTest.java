@@ -1,18 +1,17 @@
 package com.quind.prueba.tecnica.usecase;
 
+import com.quind.prueba.tecnica.domain.model.commands.TaskUpdateCommand;
 import com.quind.prueba.tecnica.domain.model.enums.Priority;
 import com.quind.prueba.tecnica.domain.model.enums.Status;
 import com.quind.prueba.tecnica.domain.model.models.Task;
 import com.quind.prueba.tecnica.domain.model.ports.outbound.TaskRepositoryPort;
 import com.quind.prueba.tecnica.domain.model.utils.ISpecificationTask;
 import com.quind.prueba.tecnica.domain.model.utils.implementation.SpecificationImplementation;
-import com.quind.prueba.tecnica.domain.usecase.TasKUseCase;
-import com.quind.prueba.tecnica.infrastructure.api.dtos.TaskUpdateDTO;
+import com.quind.prueba.tecnica.domain.usecase.TaskUseCase;
 import com.quind.prueba.tecnica.infrastructure.exception.InvalidParameterException;
 import com.quind.prueba.tecnica.infrastructure.exception.TaskServiceException;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -31,7 +30,7 @@ public class UseCaseTest {
 
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
         Task task = new Task(1L, "Task description", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now(), "Comment");
 
         when(taskRepositoryPort.taskAlreadyExists(anyLong(), any(LocalDate.class))).thenReturn(false);
@@ -50,7 +49,7 @@ public class UseCaseTest {
 
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
         Task task = new Task(1L, "Task description", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now(), "Comment");
 
         when(taskRepositoryPort.taskAlreadyExists(anyLong(), any(LocalDate.class))).thenReturn(true);
@@ -63,8 +62,8 @@ public class UseCaseTest {
 
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(Status.EN_PROCESO, LocalDate.now(), "John Doe", "Comment");
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUpdateCommand taskUpdateDTO = new TaskUpdateCommand(Status.EN_PROCESO, LocalDate.now(), "John Doe", "Comment");
         Long id = 1L;
         Task taskToUpdate = new Task(id, "Task description", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now(), "Comment");
         Task modifiedTask = new Task(id, "Task description", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now(), "New Comment");
@@ -86,8 +85,8 @@ public class UseCaseTest {
 
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
-        TaskUpdateDTO taskUpdateDTO = new TaskUpdateDTO(Status.EN_PROCESO, LocalDate.now(), "John Doe", "Comment");
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUpdateCommand taskUpdateDTO = new TaskUpdateCommand(Status.EN_PROCESO, LocalDate.now(), "John Doe", "Comment");
         Long taskId = 1L;
 
 
@@ -102,7 +101,7 @@ public class UseCaseTest {
 
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
         Long id = 1L;
         Task taskToDelete = new Task(id, "Task description", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now(), "Comment");
 
@@ -123,7 +122,7 @@ public class UseCaseTest {
         // Arrange
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
         Long taskId = 1L;
 
 
@@ -138,7 +137,7 @@ public class UseCaseTest {
         // Arrange
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
         List<Task> tasks = Arrays.asList(
                 new Task(1L, "Task 1", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now(), "Comment"),
                 new Task(2L, "Task 2", "Jane Smith", LocalDate.now(), Priority.BAJA, Status.NUEVA, LocalDate.now(), LocalDate.now(), "Comment")
@@ -157,7 +156,7 @@ public class UseCaseTest {
         // Arrange
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
 
         List<Task> tasks = Arrays.asList(
                 new Task(1L, "Task 1", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now(), "Comment"),
@@ -177,7 +176,7 @@ public class UseCaseTest {
 
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
 
         List<Task> tasks = Arrays.asList(
                 new Task(1L, "Task 1", "John Doe", LocalDate.now(), Priority.ALTA, Status.EN_PROCESO, LocalDate.now(), LocalDate.now(), "Comment"),
@@ -192,7 +191,7 @@ public class UseCaseTest {
 
         TaskRepositoryPort taskRepositoryPort = mock(TaskRepositoryPort.class);
         ISpecificationTask iSpecificationTask = mock(ISpecificationTask.class);
-        TasKUseCase taskUseCase = new TasKUseCase(taskRepositoryPort, iSpecificationTask);
+        TaskUseCase taskUseCase = new TaskUseCase(taskRepositoryPort, iSpecificationTask);
         Status status = null;
         LocalDate startDate = LocalDate.of(2021, 1, 1);
         String assignedPerson = "John Doe";

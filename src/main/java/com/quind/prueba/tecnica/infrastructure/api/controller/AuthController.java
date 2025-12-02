@@ -2,7 +2,7 @@ package com.quind.prueba.tecnica.infrastructure.api.controller;
 
 import com.quind.prueba.tecnica.config.JwtUtils;
 import com.quind.prueba.tecnica.infrastructure.api.controller.response.AutResponse;
-import com.quind.prueba.tecnica.infrastructure.api.controller.response.ResponseController;
+import com.quind.prueba.tecnica.infrastructure.api.controller.response.ApiResponse;
 import com.quind.prueba.tecnica.infrastructure.api.dtos.UserDTO;
 import com.quind.prueba.tecnica.infrastructure.api.handlers.IUserHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +40,9 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(new AutResponse("Autorizado exitosamente",HttpStatus.OK.value(),jwt));
     }
     @PostMapping("/create")
-    public ResponseEntity<ResponseController> create(@RequestBody UserDTO loginDto) {
+    public ResponseEntity<ApiResponse<Void>> create(@RequestBody UserDTO loginDto) {
         UserDTO userDTO= iUserHandler.save(loginDto);
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseController("Usuario creado con exito con el username: "+userDTO.getUsername(),HttpStatus.CREATED.value()));
+        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success("Usuario creado con exito con el username: "+userDTO.getUsername(),HttpStatus.CREATED.value()));
     }
 
 }

@@ -49,10 +49,8 @@ public class TaskDbAdapter implements TaskRepositoryPort {
     @Override
     public boolean taskAlreadyExists(Long id, LocalDate date) {
         log.info("se consultó la existencia de una tarea en especifico");
-        Optional<TaskEntity> taskEntity= taskRepository.findByTaskCodeAndEndDate(id,date);
-        if(taskEntity.isEmpty()){
-            return false;
-        }else return true;
+        Optional<TaskEntity> taskEntity= taskRepository.findByTaskCodeAndBeginDate(id,date);
+        return taskEntity.isPresent();
 
     }
 
